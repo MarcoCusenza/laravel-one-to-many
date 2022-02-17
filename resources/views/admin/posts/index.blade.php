@@ -16,6 +16,10 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $post->title }}</h5>
                                     <p class="card-text">{{ $post->content }}</p>
+                                    @if ($post->category)
+                                        <p class="card-text bg-info text-center text-light">Categoria: {{ $post->category->name }}</p>
+                                    @endif
+
                                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Visualizza</a>
                                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Modifica</a>
                                 </div>
