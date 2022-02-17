@@ -26,6 +26,25 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="category">Categoria</label>
+                <select class="form-control form-control-md @error('category') is-invalid @enderror" id="category"
+                    name="category_id">
+                    @php
+                        $selected = old('category') ? old('category') : $post->category_id;
+                    @endphp
+                    <option value="">Seleziona una categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ $selected == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="published" name="published"
                     {{ $post->published ? 'checked' : '' }}>
