@@ -42,6 +42,9 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('posts.index') }}">Tutti i
                                 post</a>
                         </li>
+                        <li class="nav-item"><a class="nav-link"
+                                href="{{ route('categories.index') }}">Categorie</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -66,7 +69,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
