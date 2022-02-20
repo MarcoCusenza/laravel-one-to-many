@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Post;
 use App\Category;
 
 class CategoryController extends Controller
@@ -46,8 +47,17 @@ class CategoryController extends Controller
     // validazione
     $request->validate($this->validationRules);
 
-    // prendo i dati del form
     $data = $request->all();
+    // $posts = Post::all();
+
+    // var_dump($data["name"]);
+
+    // foreach ($posts as $post) {
+    //   var_dump($post["name"]);
+    //   if ($post["name"] == $data["name"]) {
+    //     dd("ERRORE: La categoria esiste già");
+    //   }
+    // }
 
     // aggiorno la risorsa con i nuovi dati
     $newCat = new Category();
@@ -69,6 +79,7 @@ class CategoryController extends Controller
     return redirect()->route('categories.show', $newCat->id);
   }
 
+
   /**
    * Display the specified resource.
    *
@@ -86,9 +97,9 @@ class CategoryController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit(Category $category)
   {
-    //
+    return view("admin.categories.edit", compact("category"));
   }
 
   /**
@@ -98,9 +109,44 @@ class CategoryController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(Request $request, Category $category)
   {
-    //
+    // validazione
+    $request->validate($this->validationRules);
+
+    $data = $request->all();
+    // $posts = Post::all();
+
+    // var_dump($data["name"]);
+
+    // foreach ($posts as $post) {
+    //   var_dump($post["name"]);
+    //   if ($post["name"] == $data["name"]) {
+    //     dd("ERRORE: La categoria esiste già");
+    //   }
+    // }
+
+    //gestisco lo slug
+    if ($category->name != $data['name']) {
+      $category->name = $data['name'];
+
+      $slug = Str::slug($category->name, '-');
+
+      if ($slug != $category->slug) {
+        $i = 1;
+
+        while (Post::where("slug", $slug)->first()) {
+          $slug = Str::slug($category->name, '-') . "-{$i}";
+          $i++;
+        }
+
+        $category->slug = $slug;
+      }
+    }
+
+    $category->save();
+
+    return redirect()->route('categories.show', $category->id);
   }
 
   /**
@@ -109,8 +155,10 @@ class CategoryController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy(Category $category)
   {
-    //
+    $category->delete();
+
+    return redirect()->route("categories.index");
   }
 }

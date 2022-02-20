@@ -17,15 +17,14 @@
                     <th scope="row">{{ $category->id }}</th>
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->slug }}</td>
-                    <td>
-                        {{-- <a href="{{ route('cotegories.edit', $category->id) }}" class="btn btn-warning mr-2">Modifica</a> --}}
-
+                    <td class="d-flex">
+                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning mr-1">Modifica</a>
                         {{-- Pulsante Elimina --}}
-                        {{-- <form action="{{ route('cotegories.destroy', $category->id) }}" method="POST">
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
                             @csrf
                             @method("DELETE")
                             <button type="submit" class="btn btn-danger">Elimina</button>
-                        </form> --}}
+                        </form>
                     </td>
                 </tr>
             </tbody>
