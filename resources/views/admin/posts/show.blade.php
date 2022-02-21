@@ -8,6 +8,10 @@
                 <div class="card-header">{{ __('Post') }}</div>
                 <div class="card-body">
                     <div class="card" style="width: 40rem;">
+                        @if ($post->image)
+                            <img src="{{ asset("storage/{$post->image}") }}" class="card-img-top"
+                                alt="{{ $post->title }}">
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $post->title }}</h5>
                             <p class="card-text">{{ $post->content }}</p>

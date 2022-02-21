@@ -5,7 +5,7 @@
     <div class="container">
         <h1>Crea un nuovo Post</h1>
 
-        <form action="{{ route('posts.store') }}" method="POST">
+        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -48,7 +48,26 @@
                 <label class="form-check-label" for="published">Pubblica</label>
             </div>
 
+            <div class="form-group">
+                <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200">
+                <label for="image">Aggiungi immagine</label>
+                <input type="file" id="image" name="image" onchange="PreviewImage();">
+
+                <script type="text/javascript">
+                    function PreviewImage() {
+                        var oFReader = new FileReader();
+                        oFReader.readAsDataURL(document.getElementById("image").files[0]);
+
+                        oFReader.onload = function(oFREvent) {
+                            document.getElementById("uploadPreview").src = oFREvent.target.result;
+                        };
+                    };
+                </script>
+            </div>
+
+
             <button type="submit" class="btn btn-primary">Crea</button>
+
         </form>
 
         @if ($errors->any())

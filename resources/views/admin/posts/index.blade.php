@@ -13,11 +13,16 @@
                     <div class="card-body row p-5 ">
                         @foreach ($posts as $post)
                             <div class="card col-6 p-3" style="width: 18rem;">
+                                @if ($post->image)
+                                    <img src="{{ asset("storage/{$post->image}") }}" class="card-img-top"
+                                        alt="{{ $post->title }}">
+                                @endif
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $post->title }}</h5>
                                     <p class="card-text">{{ $post->content }}</p>
                                     @if ($post->category)
-                                        <p class="card-text bg-info text-center text-light">Categoria: {{ $post->category->name }}</p>
+                                        <p class="card-text bg-info text-center text-light">Categoria:
+                                            {{ $post->category->name }}</p>
                                     @endif
 
                                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Visualizza</a>
